@@ -12,7 +12,7 @@ interface GiphyApi {
     companion object {
         const val BASE_URL = "https://api.giphy.com/v1/gifs/"
         const val API_KEY = BuildConfig.API_KEY
-        const val DEFAULT_LIMIT = 30
+        const val DEFAULT_LIMIT = 10
     }
 
     @GET("trending")

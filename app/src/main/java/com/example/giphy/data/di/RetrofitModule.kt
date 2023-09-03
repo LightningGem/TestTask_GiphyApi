@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RetrofitModule {
+class RetrofitModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
