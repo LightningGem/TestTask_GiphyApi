@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.example.giphy'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.giphy"
+        minSdk 28
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        buildConfigField("String", "API_KEY", API_KEY)
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        buildConfig true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // Android
+    implementation "androidx.core:core-ktx:$android_core_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // Compose
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material3:material3:$material3_compose_version"
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+    // Paging
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-compose:$paging_compose_version"
+    // Landscapist (image loading for Jetpack Compose)
+    implementation "com.github.skydoves:landscapist-glide:$landscapist_version"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
+}
