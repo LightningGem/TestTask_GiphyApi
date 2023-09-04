@@ -10,9 +10,14 @@
   Повноекранне відображення вибраної гіфки
 - Для виконання запитів до API можна скористатися бібліотекою
   Retrofit.
-- Вибір архітектури та додаткових технологій на ваш розсуд.
-- Буде перевагою реалізація додатка на Kotlin.
-- Вести розробку в репозиторії, після закінчення роботи – надати
-  посилання на репо.
 - Головна умова до додатка: запуск з першого разу та коректне
   відпрацювання
+
+
+### ❗ Для коректної роботи потрібно вписати API_KEY в файлі [gradle.properties](gradle.properties) ❗
+
+## Screenshots
+<p align="center">
+<img src="screenshots/screenshot_2.png" height="400"/> <img src="screenshots/screenshot_3.png" height="400"/> <img src="screenshots/screenshot_4.png" height="400"/>
+<img src="screenshots/screenshot_1.png" height="400"/>
+</p>

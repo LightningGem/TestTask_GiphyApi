@@ -9,6 +9,8 @@ import com.example.giphy.data.api.GiphyApi
 import com.example.giphy.data.api.model.GifData
 import com.example.giphy.domain.GifRepository
 import com.example.giphy.domain.model.Gif
+import com.example.giphy.domain.model.Result
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -30,10 +32,14 @@ class GifRepositoryImpl @Inject constructor(
 
                 override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Gif> {
                     val page = params.key ?: 0
-                    val response = api.getGifs(
-                        offset = GiphyApi.DEFAULT_LIMIT * page,
-                        limit = GiphyApi.DEFAULT_LIMIT
-                    )
+                    val response = try {
+                        coroutineScope {
+                            api.getGifs(
+                                offset = GiphyApi.DEFAULT_LIMIT * page,
+                                limit = GiphyApi.DEFAULT_LIMIT
+                            )
+                        }
+                    } catch (e: Exception) { return LoadResult.Error(e) }
 
                     if(!response.isSuccessful) return LoadResult.Error(HttpException(response))
                     if(response.body() == null) return LoadResult.Error(IllegalArgumentException())
@@ -48,7 +54,13 @@ class GifRepositoryImpl @Inject constructor(
     ).flow
 
     override suspend fun getGif(id: String): Result<Gif> {
-        TODO("Not yet implemented")
+        val response = try { coroutineScope { api.getGifById(id) } } catch (e: Exception) { return Result.Error(e) }
+
+        return when {
+            !response.isSuccessful -> Result.Error(HttpException(response))
+            response.body() == null -> Result.Error(IllegalArgumentException())
+            else -> Result.Success(response.body()!!.data.toGif(downsized = false))
+        }
     }
 }
 
